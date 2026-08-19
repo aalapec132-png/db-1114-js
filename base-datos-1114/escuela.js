@@ -44,3 +44,37 @@ const rows = selSeccion.all('1114');
 const json = JSON.stringify(rows, null, 2);
 console.log('Como JSON:');
 console.log(json);
+db.exec(`
+  CREATE TABLE IF NOT EXISTS cursos (
+    id INTEGER PRIMARY KEY,
+    nombre TEXT NOT NULL
+  )
+`);
+
+db.exec(`
+  CREATE TABLE IF NOT EXISTS inscripciones (
+    alumno_id INTEGER,
+    curso_id INTEGER,
+    FOREIGN KEY (alumno_id) REFERENCES alumnos(id),
+    FOREIGN KEY (curso_id) REFERENCES cursos(id)
+  )
+`);
+
+
+ /* Preguntas
+
+1. ¿Qué pasa con este código si necesito 5 filtros? ¿Y si necesito 10?
+2. Si cierro el programa, ¿dónde quedaron los datos?
+3. ¿Qué alumnos se inscribieron a "Base de Datos"?
+4. ¿Cuántos cursos tiene cada alumno?
+
+ Respuestas
+
+ 1.El código se hace cada vez más largo y complicado, porque tendría que agregar muchos filtros y sería más difícil de organizar y mantener.
+ 2.Los datos quedan en la memoria del programa y se pierden cuando lo cierro, porque todavía no están guardados en una base de datos.
+ 3.Ana, Luis y Pedro.
+ 4.Ana tiene 2 cursos, Luis tiene 1 curso, Marta tiene 1 curso y Pedro tiene 1 curso. */
+
+/* Frase
+
+ JSON lo uso para organizar y mostrar los datos de una forma sencilla, y SQLite lo uso para guardar esos datos y poder consultarlos aunque cierre el programa. */
